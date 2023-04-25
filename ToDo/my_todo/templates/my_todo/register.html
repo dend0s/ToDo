@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="icon" type="image/png" href="{% static "logo.png" %}">
+    <link rel="stylesheet" href="{% static 'login_style.css' %}">
+</head>
+<body>
+<form method="post" class="ui-form">
+    {% csrf_token %}
+    <h3><img src="{% static 'logo.png'%}" alt="ToDo" width="30" height="30">&nbsp;Регистрация</h3>
+    <div class="form-row">
+    <input type="text" name="username" required id="id_username"><label for="id_username">Имя пользователя</label>
+    </div>
+    <div class="form-row">
+    <input type="password" name="password1" required id="id_password1"><label for="id_password1">Пароль</label>
+    </div>
+    <div class="form-row">
+    <input type="password" name="password2" required id="id_password2"><label for="id_password2">Подтверждение пароля</label>
+    </div>
+    <p><input type="submit" value="Зарегистрироваться"></p>
+    <p class="link"><a href={% url 'logined' %}>Войти</a></p>
+</form>
+</body>
+</html>

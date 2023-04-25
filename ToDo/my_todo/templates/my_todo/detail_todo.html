@@ -1,0 +1,39 @@
+{% extends 'my_todo/base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'new_detail_style.css' %}">
+{% endblock css %}
+{% block title %}
+    Заметка
+{% endblock title %}
+{% block content %}
+    {% if edit %}
+        <form method="post" action="{% url 'update_todo' todo.pk %}" class="decor">
+            {% csrf_token %}
+            <div class="form-inner">
+                <h3>Редактирование заметки</h3>
+                <input type="text" name="title" required id="id_title" value={{ todo.title }}>
+                <textarea name="content" id="id_content" rows="3">{{todo.content}}</textarea>
+                <input type="submit" value="Сохранить">
+            </div>
+        </form>
+    {% else %}
+        <div class="todo_detail">
+            <div class="todo_title">{{ todo.title }}</div>
+            <div class="todo_content">{{ todo.content }}</div>
+            <div class="todo_time">Дата создания: {{ todo.date_created }}</div>
+            <div class="todo_buttons">
+                <button class="button_todo" type="submit">
+                    <a class="button_link_todo" href="{% url 'update_todo' todo.pk %}">Изменить</a>
+                </button>
+            </div>
+            {# Delete ToDo #}
+            <div class="todo_buttons">
+                <form method="post" action="{% url 'delete_todo' todo.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button_todo">Удалить</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

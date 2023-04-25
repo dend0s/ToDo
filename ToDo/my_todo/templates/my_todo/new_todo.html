@@ -1,0 +1,15 @@
+{% extends 'my_todo/base.html' %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'new_detail_style.css' %}"> {% endblock css %}
+{% block title %}Новая заметка{% endblock title %}
+{% block content %}
+    <form method="post" class="decor">
+        {% csrf_token %}
+        <div class="form-inner">
+        <h3>Новая заметка</h3>
+        <input type="text" name="title" placeholder="Заголовок">
+        <textarea placeholder="Текст..." rows="3" name="content"></textarea>
+        <input type="submit" value="Добавить">
+        </div>
+    </form>
+{% endblock content %}

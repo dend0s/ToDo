@@ -1,0 +1,49 @@
+{% extends 'my_todo/base.html' %}
+{% block title %}Заметки{% endblock title %}
+
+{% block content %}
+        {% if todos %}
+            <div class="todo_header">Список заметок</div>
+            <ul class="ul">
+                {% for t in todos %}
+                    <li class="li"><a class="link" href="{% url 'detail_todo' t.pk %}">{{ t.title }}</a></li>
+                    <p>{{ t.content|truncatewords:10}}</p>
+                {% endfor %}
+            </ul>
+            {% if page_obj.has_other_pages %}
+        <div class="pag"> 
+            <ul class="page">
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;
+                        </a></li>
+                {% else %}
+                    <li><a>&laquo;
+                     </a></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li><b>{{ i }} </b>
+                        </li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">
+                        &raquo;</a></li>
+                {% else %}
+                    <li ><a>
+                        &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+        {% else %}
+            <div class="start-text">
+            Список заметок пуст
+            <br>
+            <button class="button" type="submit"><a class="button-link" href="{% url 'new_todo' %}">Добавить заметку</a></button>
+            </div>
+        {% endif %}
+        <div class="plus"><a class="plus-link" href="{% url 'new_todo'%}">+</a></div>
+{% endblock content %}

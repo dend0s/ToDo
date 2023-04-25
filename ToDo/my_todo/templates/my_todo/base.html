@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="{% static "logo.png" %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% block css %}
+    {% endblock css %}
+    <title>
+      {% block title %}
+        ToDo Заметки
+      {% endblock title %}
+    </title>
+  </head>
+  <body>
+    <nav class="nav">
+      {% if user.is_authenticated %}
+        <div class="nav-text2">
+          <a href="{% url 'list_todo' %}">
+            <img src="{% static 'logo.png' %}" alt="ToDo" width="50" height="50">
+          </a>
+          <a href="{% url 'list_todo' %}" class="nav-text2">Заметки</a>
+        </div>
+      {% else %}
+        <div class="nav-text2">
+          <a href="{% url 'index' %}">
+            <img src="{% static 'logo.png' %}" alt="ToDo" width="50" height="50">
+          </a>
+          <a href="{% url 'index' %}" class="nav-text2">Заметки</a>
+        {% endif %}
+      </div>
+      <div class="nav-text">
+        {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'new_todo' %}">Добавить заметку</a> |
+          <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+          <a class="nav-link" href="{% url 'logined' %}">Войти</a> |
+          <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
+        {% endif %}
+      </div>
+    </nav>
+    <div class="content">
+      {% block content %}
+      {% endblock content %}
+    </div>
+    <footer class="footer">
+      <div class="footer-text">
+        <a class="footer-link" href="https://github.com/dend0s">Об авторе</a>
+      </div>
+    </footer>
+  </body>
+</html>

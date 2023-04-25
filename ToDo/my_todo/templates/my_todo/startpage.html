@@ -1,0 +1,14 @@
+{% extends 'my_todo/base.html' %}
+{% block title %}ToDo Заметки{% endblock title %}
+{% block content %}
+    <div class="start-text">
+        {% if user.is_authenticated %}
+            Привет, {{ user }}!
+            <br>
+            <a class="link" href="{% url 'list_todo' %}">Просмотреть заметки</a>
+        {% else %}
+            Для просмотра заметок необходимо <a class="link" href="{% url 'logined' %}">войти</a> или
+            <a class="link" href="{% url 'register' %}">зарегистрироваться</a>
+            </div>
+        {% endif %}
+{% endblock content %}
